@@ -11,7 +11,7 @@ function Login() {
     try {
       const userData = await AuthService.loginWithGoogle(credentialResponse);
       console.log("Usuario logueado en backend:", userData);
-      navigate("/home");
+      navigate("/Dashboard");
     } catch (err: any) {
       console.error("Error al iniciar sesión con Google:", err.message);
     }

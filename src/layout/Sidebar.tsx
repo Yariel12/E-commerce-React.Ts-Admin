@@ -62,14 +62,14 @@ function Sidebar() {
           {openMenu === "productos" && (
             <div className="mt-1 ml-10 space-y-1 transition-all duration-300 ease-in-out">
               <button
-                onClick={() => navigate("/productos/crear")}
+                onClick={() => navigate("/products/Create")}
                 className="flex items-center w-full px-2 py-1 text-sm transition rounded hover:bg-blue-800"
               >
                 <PlusCircle size={16} className="mr-2 text-cyan-400" />
                 Crear producto
               </button>
               <button
-                onClick={() => navigate("/productos")}
+                onClick={() => navigate("/products/List")}
                 className="flex items-center w-full px-2 py-1 text-sm transition rounded hover:bg-blue-800"
               >
                 <Eye size={16} className="mr-2 text-cyan-400" />
@@ -98,7 +98,7 @@ function Sidebar() {
           {openMenu === "categorias" && (
             <div className="mt-1 ml-10 space-y-1 transition-all duration-300 ease-in-out">
               <button
-                onClick={() => navigate("/categorias/crear")}
+                onClick={() => navigate("/Category/Create")}
                 className="flex items-center w-full px-2 py-1 text-sm transition rounded hover:bg-blue-800"
               >
                 <PlusCircle size={16} className="mr-2 text-cyan-400" />
@@ -117,7 +117,10 @@ function Sidebar() {
       </nav>
 
       <div className="p-4 border-t border-blue-700">
-        <button className="flex items-center w-full px-4 py-2 transition rounded-lg hover:bg-blue-800">
+        <button
+          className="flex items-center w-full px-4 py-2 transition rounded-lg hover:bg-blue-800"
+          onClick={() => navigate("/settings")}
+        >
           <Settings size={20} className="mr-3 text-cyan-400" />
           Configuración
         </button>

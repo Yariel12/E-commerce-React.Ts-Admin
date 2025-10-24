@@ -19,7 +19,7 @@ const NotFound = () => {
         </p>
 
         <Link
-          to="/"
+          to="/Dashboard"
           className="inline-block px-6 py-3 mt-6 font-semibold text-white transition-all duration-300 bg-blue-600 rounded-lg hover:bg-blue-700"
         >
           ⬅️ Back to Home
