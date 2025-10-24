@@ -9,8 +9,10 @@ import NotFound from "./pages/NotFound.tsx";
 import CategoryList from "./pages/CategoryList.tsx";
 import SideBar from "./layout/Sidebar.tsx";
 import Login from "./pages/Login.tsx";
+import ProductsList from "./pages/ProductsList.tsx";
 import CategoryCreate from "./pages/CategoryCreate.tsx";
 import { ToastContainer } from "react-toastify";
+import ProductsCreate from "./pages/ProductsCreate.tsx";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
@@ -38,6 +40,8 @@ function AppContent() {
       <main className="flex-1">
         <Routes>
           <Route path="/Category/Create" element={<CategoryCreate />} />
+          <Route path="/Products/List" element={<ProductsList />} />
+          <Route path="/Products/Create" element={<ProductsCreate />} />
           <Route path="/dashboard" element={<Home />} />
           <Route path="/Category/List" element={<CategoryList />} />
           <Route path="/login" element={<Login />} />
