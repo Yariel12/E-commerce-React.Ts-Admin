@@ -5,10 +5,10 @@ import { useCategories } from "../Hooks/UseCategory";
 
 interface ProductForm {
   name: string;
-  price: number;
+  price: string;
   description: string;
-  categoryId: number;
-  stock: number;
+  categoryId: string;
+  stock: string;
   categoryName: string;
   imageUrl: string;
 }
@@ -19,10 +19,10 @@ export const useProductForm = () => {
 
   const [form, setForm] = useState<ProductForm>({
     name: "",
-    price: 0,
+    price: "",
     description: "",
-    categoryId: 0,
-    stock: 0,
+    categoryId: "",
+    stock: "",
     categoryName: "",
     imageUrl: "",
   });
@@ -35,10 +35,7 @@ export const useProductForm = () => {
     const { name, value } = e.target;
     setForm((prev) => ({
       ...prev,
-      [name]:
-        name === "price" || name === "stock" || name === "categoryId"
-          ? Number(value)
-          : value,
+      [name]: value,
     }));
   };
 
@@ -56,9 +53,9 @@ export const useProductForm = () => {
       !form.description.trim() ||
       !form.categoryName.trim() ||
       !form.imageUrl.trim() ||
-      form.price <= 0 ||
-      form.stock < 0 ||
-      form.categoryId <= 0
+      Number(form.price) <= 0 ||
+      Number(form.stock) < 0 ||
+      Number(form.categoryId) <= 0
     ) {
       toast.error("Rellena todos los campos correctamente");
       return;
@@ -77,15 +74,15 @@ export const useProductForm = () => {
 
       setForm({
         name: "",
-        price: 0,
+        price: "",
         description: "",
-        categoryId: 0,
-        stock: 0,
+        categoryId: "",
+        stock: "",
         categoryName: "",
         imageUrl: "",
       });
 
-      toast.success("Producto creado con éxito ✅");
+      toast.success("Producto creado con éxito");
     } catch (error) {
       console.log(error);
       toast.error("Error al crear el producto");

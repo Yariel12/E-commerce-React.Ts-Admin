@@ -6,28 +6,26 @@ import {
   updateProduct,
   deleteProduct,
 } from "../services/ProductService";
-import { Product, CreateProductDto } from "../Types/Product";
+import { CreateProductDto, PagedResponse, Product } from "../Types/Product";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-export const useProducts = () => {
+export const useProducts = (page = 1, limit = 10) => {
   const queryClient = useQueryClient();
   const MySwal = withReactContent(Swal);
 
-  const {
-    data: products,
-    isLoading,
-    isError,
-    refetch,
-  } = useQuery<Product[]>({
-    queryKey: ["products"],
-    queryFn: getProducts,
+  const { data, isLoading, isError, refetch } = useQuery<
+    PagedResponse<Product>
+  >({
+    queryKey: ["products", page, limit],
+    queryFn: () => getProducts(page, limit),
   });
 
   const createMutation = useMutation({
     mutationFn: (product: CreateProductDto) => createProduct(product),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
+      queryClient.invalidateQueries({ queryKey: ["products", page, limit] });
     },
   });
 
@@ -36,6 +34,7 @@ export const useProducts = () => {
       updateProduct(id, product),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
+      queryClient.invalidateQueries({ queryKey: ["products", page, limit] });
     },
   });
 
@@ -43,6 +42,7 @@ export const useProducts = () => {
     mutationFn: deleteProduct,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
+      queryClient.invalidateQueries({ queryKey: ["products", page, limit] });
     },
   });
 
@@ -64,10 +64,10 @@ export const useProducts = () => {
         MySwal.fire({
           title: "Eliminado",
           icon: "success",
-          timer: 1300,
+          timer: 1200,
           showConfirmButton: false,
         });
-      } catch (error) {
+      } catch {
         MySwal.fire({
           title: "Error",
           text: "No se pudo eliminar el producto",
@@ -77,18 +77,17 @@ export const useProducts = () => {
     }
   };
 
-  const getById = async (id: number) => {
-    return await getProductById(id);
-  };
-
   return {
-    products,
+    products: data?.data ?? [],
+    total: data?.total ?? 0,
+    page: data?.page ?? page,
+    limit: data?.limit ?? limit,
     isLoading,
     isError,
     refetch,
     createProduct: createMutation.mutateAsync,
     updateProduct: updateMutation.mutateAsync,
     deleteProduct: handleDelete,
-    getById,
+    getById: getProductById,
   };
 };

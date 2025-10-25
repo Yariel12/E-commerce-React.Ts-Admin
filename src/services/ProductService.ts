@@ -1,10 +1,15 @@
 import { http } from "../Api/HttpClient";
-import { Product } from "../Types/Product";
-import { CreateProductDto } from "../Types/Product";
+import { CreateProductDto, PagedResponse, Product } from "../Types/Product";
 
-export const getProducts = async (): Promise<Product[]> => {
-  const response = await http.get<Product[]>("/Product");
-  return response.data;
+const BASE_URL = "/Product";
+
+export const getProducts = (
+  page = 1,
+  limit = 10
+): Promise<PagedResponse<Product>> => {
+  return http
+    .get<PagedResponse<Product>>(`${BASE_URL}?page=${page}&limit=${limit}`)
+    .then((res) => res.data);
 };
 
 export const getProductById = async (id: number): Promise<Product> => {
@@ -23,7 +28,8 @@ export const updateProduct = async (
   id: number,
   product: CreateProductDto
 ): Promise<Product> => {
-  const response = await http.put<Product>(`/Product/${id}`, product);
+  const body = { ...product, id };
+  const response = await http.put<Product>(`/Product/${id}`, body);
   return response.data;
 };
 

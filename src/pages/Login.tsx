@@ -10,10 +10,16 @@ function Login() {
   const handleSuccess = async (credentialResponse: CredentialResponse) => {
     try {
       const userData = await AuthService.loginWithGoogle(credentialResponse);
+
+      if (userData?.token) {
+        localStorage.setItem("token", userData.token);
+      }
+
       console.log("Usuario logueado en backend:", userData);
-      navigate("/Dashboard");
+
+      navigate("/dashboard");
     } catch (err: any) {
-      console.error("Error al iniciar sesión con Google:", err.message);
+      console.error("Error al iniciar sesión con Google:", err?.message);
     }
   };
 
@@ -37,7 +43,7 @@ function Login() {
 
       <div className="flex items-center justify-center flex-1 p-4 bg-gradient-to-br from-gray-100 to-gray-200">
         <div className="w-full max-w-sm p-10 text-center transition-transform border shadow-2xl rounded-2xl bg-white/40 backdrop-blur-xl border-white/30 hover:translate-y-1 hover:shadow-3xl">
-          <h2 className="mt-6 font-serif text-3xl font-semibold text-gray-800">
+          <h2 className="mt-6 font-serif text-3xl text-gray-800 bold">
             Bienvenido
           </h2>
           <p className="mt-2 text-sm text-gray-500">
