@@ -34,7 +34,6 @@ export default function EditProductModal({ product, onClose }: Props) {
         </div>
 
         <div className="px-6 py-6 overflow-y-auto max-h-[calc(90vh-180px)] space-y-5">
-          {/* Nombre del producto */}
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700">
               Nombre del producto

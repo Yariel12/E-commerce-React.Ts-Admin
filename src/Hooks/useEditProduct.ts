@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { CreateProductDto, Product } from "../Types/Product";
 import { useProducts } from "./UseProduct";
 import { useCategories } from "./UseCategory";
+import { toast } from "react-toastify"; // <-- Importa Toastify
+import "react-toastify/dist/ReactToastify.css";
 
 export const useEditProduct = (
   product: Product | null,
@@ -63,10 +65,11 @@ export const useEditProduct = (
         id: product.id,
         product: form,
       });
+      toast.success("Producto actualizado con éxito!");
       onClose();
     } catch (error) {
       console.error(error);
-      alert("Error al actualizar el producto");
+      toast.error("Error al actualizar el producto");
     }
   };
 
