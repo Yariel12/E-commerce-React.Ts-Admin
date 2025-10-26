@@ -1,14 +1,12 @@
 import { http } from "../Api/HttpClient";
 import { CreateProductDto, PagedResponse, Product } from "../Types/Product";
 
-const BASE_URL = "/Product";
-
 export const getProducts = (
   page = 1,
   limit = 10
 ): Promise<PagedResponse<Product>> => {
   return http
-    .get<PagedResponse<Product>>(`${BASE_URL}?page=${page}&limit=${limit}`)
+    .get<PagedResponse<Product>>(`/Product?page=${page}&limit=${limit}`)
     .then((res) => res.data);
 };
 

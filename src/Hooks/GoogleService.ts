@@ -5,7 +5,7 @@ export async function loginWithGoogle(credentialResponse: CredentialResponse) {
 
   const token = credentialResponse.credential;
 
-  const res = await fetch("http://localhost:5000/api/auth/google-login", {
+  const res = await fetch("http://localhost:5000/api/Auth/google-login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ token }),
